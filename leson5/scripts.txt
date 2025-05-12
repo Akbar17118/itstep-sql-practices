@@ -1,0 +1,51 @@
+INSERT INTO users(first_name, last_name, password, username)
+VALUES
+	('Malica', 'Raximbaeva', '111', 'pashtet'),	
+	('Asdf', 'sdsfd', '142', 'asdf'),
+
+SELECT * FROM users;
+
+INSERT INTO ptofiles(user_id)
+VALUES (1), (2), (3)
+
+INSERT INTO categories(name)
+VALUES ('фРУКТЫ'), ('Оващи'), ('Напитки');
+
+SELECT * FROM categories
+
+INSERT INTO products (name, price, category_id)
+VALUES
+	('Баланс', 1000, 1),
+	('яблоко',8000, 1),
+	('Ананас', 10000, 1);
+	
+INSERT INTO products(name, price, category_id)
+VALUES
+	('Морковь', 8000, 2),
+	('Огурец',30000, 2),
+	('Баклажан', 20000, 2);
+	
+INSERT INTO products (name, price, category_id)
+VALUES
+	('Кола', 10000, 3),
+	('Пепси',12000, 3),
+	('RedBull', 27000, 3);
+	
+SELECT * FROM  products
+
+INSERT INTO orders (user_id)
+VALUES (1), (1), (2);
+SELECT * FROM orders
+
+INSERT INTO orders_products (user_id, order_id, quantity)
+VALUES
+	(1, 1, 4),
+	(1, 1, 2),
+	(4, 1, 6),
+	(1, 2, 52),
+	(6, 3, 21);
+SELECT * FROM orders_products;
+
+
+DELETE FROM categories WHERE id = 2;
+	
