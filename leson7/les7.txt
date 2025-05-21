@@ -1,0 +1,22 @@
+SELECT COUNT(*) FROM orders; 
+
+SELECT sum(price) FROM orders;
+
+SELECT
+customer_id,
+SUM(price * quantity)
+FROM orders
+GROUP BY customer_id
+ORDER BY SUM(price) ASC;
+
+SELECT 
+product,
+SUM(quantity)
+FROM orders
+GROUP BY product;
+
+SELECT
+id,
+AVG(price * quantity)
+FROM orders
+GROUP BY id;
