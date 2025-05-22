@@ -1,0 +1,127 @@
+CREATE PROCEDURE check_namber(n INT)
+LANGUAGE plpgsql
+AS $$
+BEGIN
+	IF 	n < 10 THEN
+		RAISE NOTICE 'Ты слишком мелки';
+	ELSIF n < 18 THEN
+		RAISE NOTICE 'Ты ещё школбник';
+	ELSE 
+		RAISE NOTICE 'Ты подходиш';
+	END IF;	
+END;
+$$;
+
+DROP PROCEDURE three(INT);
+
+CALL check_namber(8);
+CALL check_namber(12);
+
+
+CREATE  PROCEDURE one(n INT)
+LANGUAGE plpgsql
+AS $$
+BEGIN
+    IF n % 2 = 0 THEN 
+      RAISE NOTICE 'Чётный';
+  ELSE  
+    RAISE NOTICE 'Не чётный';
+  END IF ;
+END;
+$$;
+
+
+CALL one(18)
+
+CREATE PROCEDURE two(n INT)
+LANGUAGE plpgsql
+AS $$
+BEGIN
+    IF n < 18 THEN 
+      RAISE NOTICE 'Несовершеннолетний';
+  ELSIF n < 60 THEN
+    RAISE NOTICE 'Совершеннолетний';
+  ELSE
+    RAISE NOTICE 'Пенсионер';
+  END IF;
+END;
+$$;
+
+CALL two(18)
+
+CREATE PROCEDURE three(n INT)
+LANGUAGE plpgsql
+AS $$
+BEGIN
+    IF n <50 THEN 
+      RAISE NOTICE 'непрошол';
+  	ELSIF n < 70 THEN
+    	RAISE NOTICE 'Уд';
+  	ELSIF n <89  THEN
+    	RAISE NOTICE 'Хорошо	';
+  	ELSE
+    	RAISE NOTICE 'отлично';
+  END IF;
+END;
+$$;
+
+
+
+CALL three (100)
+
+
+CREATE PROCEDURE fff(n VARCHAR(512))
+LANGUAGE plpgsql
+AS $$
+BEGIN
+    IF n = 'admin' THEN 
+      RAISE NOTICE 'Администратор';
+  ELSE
+    RAISE NOTICE 'Обычный пользователь';
+  END IF;
+END;
+$$;
+
+CALL fff('admin')
+
+CREATE PROCEDURE tim(n INT)
+LANGUAGE plpgsql
+AS $$
+BEGIN
+    IF n >= 6 AND n < 12 THEN 
+      RAISE NOTICE 'Утро';
+  ELSIF n >= 12 AND n < 18 THEN 
+      RAISE NOTICE 'День';
+  ELSIF n >= 18 AND n < 23 THEN 
+      RAISE NOTICE 'Вечер';
+  ELSIF n >= 0 AND n < 6 THEN
+      RAISE NOTICE 'Ночь';
+  ELSE
+    RAISE NOTICE 'ошибка';
+  END IF;
+END;
+$$;
+
+CREATE TABLE users(
+  id BIGINT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
+  fullname VARCHAR(512) NOT NULL,
+  username VARCHAR(329) UNIQUE NOT NULL,
+  age INT
+);
+
+CREATE PROCEDURE add_update(u_username VARCHAR(320), u_age INT, u_fullname VARCHAR(512))
+LANGUAGE plpgsql
+AS $$
+DECLARE user_count BIGINT;
+BEGIN  
+  SELECT COUNT(*) INTO user_count FROM users WHERE username=u_username;
+  IF user_count > 0 THEN
+    UPDATE users
+    SET age=u_age, fullname=u_fullname
+    WHERE username=u_username;
+  ELSE 
+    INSERT INTO users(username, age, fullname)
+    VALUES (u_username, u_age, u_fullname);
+  END IF;
+END;
+$$;
